@@ -25,7 +25,6 @@ public class GithubService {
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.GITHUB_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Constants.GITHUB_REPO_QUERY_PARAMETER, repo);
-        urlBuilder.
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder()
