@@ -7,20 +7,22 @@
     tools:context="com.doghat.gitboy.ui.MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/appNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="24dp"
         android:text="@string/app_name"
-        android:textSize="48sp"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/searchRepoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -29,14 +31,14 @@
         android:layout_marginTop="106dp"
         android:text="TextView"
         android:textSize="24sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/searchRepoEditText"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.875"
-        tools:text="Search for a repo"
-        android:id="@+id/textView3" />
+        tools:text="Search for a repo" />
 
     <EditText
         android:id="@+id/searchRepoEditText"
@@ -56,7 +58,10 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginBottom="110dp"
-        android:text="Search"
+        android:text="GET"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="148dp" />
 </android.support.constraint.ConstraintLayout>
