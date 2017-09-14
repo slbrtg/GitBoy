@@ -27,13 +27,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Typeface futura = Typeface.createFromAsset(getAssets(), "fonts/Futura-Medium.ttf");
-        futura.isBold();
-        futura.isItalic();
+        Typeface futuraBI = Typeface.createFromAsset(getAssets(), "fonts/FuturaBoldItalic.ttf");
+        Typeface futuraMedium = Typeface.createFromAsset(getAssets(), "fonts/Futura-Medium.ttf");
         Typeface gb = Typeface.createFromAsset(getAssets(), "fonts/gb.ttf");
-        gb.isItalic();
-        mAppNameTextView.setTypeface(futura);
-        mSearchRepoTextView.setTypeface(gb);
+        mAppNameTextView.setTypeface(futuraBI);
+        mSearchRepoTextView.setTypeface(futuraMedium);
 
         mSearchRepoButton.setOnClickListener(new View.OnClickListener() {
             @Override
