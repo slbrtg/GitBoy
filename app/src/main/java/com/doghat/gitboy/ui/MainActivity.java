@@ -14,12 +14,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.doghat.gitboy.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = MainActivity.class.getSimpleName();
     @Bind(R.id.searchRepoButton) Button mSearchRepoButton;
     @Bind(R.id.searchRepoEditText) EditText mSearchRepoEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
     @Bind(R.id.searchRepoTextView) TextView mSearchRepoTextView;
+    @Bind(R.id.signInButton) Button mSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +34,20 @@ public class MainActivity extends AppCompatActivity {
         mAppNameTextView.setTypeface(futuraBI);
         mSearchRepoTextView.setTypeface(futuraMedium);
 
-        mSearchRepoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String searchRepoQuery = mSearchRepoEditText.getText().toString();
-                Intent intent = new Intent(MainActivity.this, RepoSearchResultsActivity.class);
-                intent.putExtra("searchRepoQuery", searchRepoQuery);
-                startActivity(intent);
-            }
-        });
+        mSearchRepoButton.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+        if(v == mSearchRepoButton){
+            String searchRepoQuery = mSearchRepoEditText.getText().toString();
+            Intent intent = new Intent(MainActivity.this, RepoSearchResultsActivity.class);
+            intent.putExtra("searchRepoQuery", searchRepoQuery);
+            startActivity(intent);
+        }
+        if(v == mSignInButton){
+            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+            startActivity(intent);
+        }
     }
 }
+
