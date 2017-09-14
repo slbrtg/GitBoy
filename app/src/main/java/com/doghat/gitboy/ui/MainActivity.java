@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
         mSearchRepoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String repo = mSearchRepoEditText.getText().toString();
+                String searchRepoQuery = mSearchRepoEditText.getText().toString();
                 Intent intent = new Intent(MainActivity.this, RepoSearchResultsActivity.class);
-                intent.putExtra("repo", repo);
+                intent.putExtra("searchRepoQuery", searchRepoQuery);
                 startActivity(intent);
             }
         });
