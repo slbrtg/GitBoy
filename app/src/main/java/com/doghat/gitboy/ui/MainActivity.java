@@ -28,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Typeface futura = Typeface.createFromAsset(getAssets(), "fonts/Futura-Medium.ttf");
+        futura.isBold();
+        futura.isItalic();
         Typeface gb = Typeface.createFromAsset(getAssets(), "fonts/gb.ttf");
+        gb.isItalic();
         mAppNameTextView.setTypeface(futura);
         mSearchRepoTextView.setTypeface(gb);
 
