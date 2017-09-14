@@ -23,7 +23,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.doghat.gitboy.ui.MainActivity"></meta-data>
         </activity>
-        <activity android:name=".ui.SignInActivity"></activity>
+        <activity android:name=".ui.SignInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.doghat.gitboy.ui.MainActivity"></meta-data>
+        </activity>
     </application>
 
 </manifest>

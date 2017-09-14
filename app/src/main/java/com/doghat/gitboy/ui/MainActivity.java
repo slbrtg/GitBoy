@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSearchRepoTextView.setTypeface(futuraMedium);
 
         mSearchRepoButton.setOnClickListener(this);
+        mSignInButton.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -43,8 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, RepoSearchResultsActivity.class);
             intent.putExtra("searchRepoQuery", searchRepoQuery);
             startActivity(intent);
-        }
-        if(v == mSignInButton){
+        } else if(v == mSignInButton){
             Intent intent = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(intent);
         }
