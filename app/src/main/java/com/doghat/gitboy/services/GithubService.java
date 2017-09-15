@@ -16,21 +16,20 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 public class GithubService {
     public static final String TAG = RepoSearchResultsActivity.class.getSimpleName();
     public static void findRepos(String repo, Callback callback){
-        OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(Constants.GITHUB_CLIENT_ID,
-                Constants.GITHUB_CLIENT_SECRET);
-
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new SigningInterceptor(consumer))
                 .build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.GITHUB_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter(Constants.GITHUB_REPO_QUERY_PARAMETER, repo);
+        urlBuilder.addPathSegments(Constants.GITHUB_REPO_SEARCH_PATH);
+        urlBuilder.addQueryParameter(Constants.GITHUB_REPO_SEARCH_QUERY_PARAMETER, repo);
+        urlBuilder.addQueryParameter(Constants.GITHUB_ACCESS_TOKEN_PARAMETER, Constants.GITHUB_TOKEN);
+
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder()
+
                 .url(url)
                 .build();
-        Log.d(TAG, request.toString());
 
         Call call = client.newCall(request);
         call.enqueue(callback);
