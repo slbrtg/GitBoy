@@ -3,6 +3,8 @@ package com.doghat.gitboy.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -27,8 +29,8 @@ import okhttp3.Response;
 public class RepoSearchResultsActivity extends AppCompatActivity {
     public static final String TAG = RepoSearchResultsActivity.class.getSimpleName();
 
-    @Bind(R.id.repoListView) ListView mRepoListView;
-    @Bind(R.id.searchRepoResultsTextView) TextView mSearchRepoResultsTextView;
+    @Bind(R.id.repoSearchResultsRecycler) RecyclerView mRepoSearchResultsRecycler;
+    private RepoListAdapter mAdapter;
 
     public ArrayList<Repo> mRepos = new ArrayList<>();
 
@@ -40,7 +42,6 @@ public class RepoSearchResultsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String searchRepoQuery = intent.getStringExtra("searchRepoQuery");
-        mSearchRepoResultsTextView.setText("You searched for: " + searchRepoQuery);
 
         getRepos(searchRepoQuery);
     }
@@ -63,16 +64,12 @@ public class RepoSearchResultsActivity extends AppCompatActivity {
 
                     @Override
                     public void run() {
-                       String[] repoNames = new String[mRepos.size()];
-                        for (int i = 0; i < repoNames.length; i++){
-                            repoNames[i] = mRepos.get(i).getmName();
-                        }
+                        mAdapter = new RepoListAdapter(getApplicationContext(), mRepos);
+                        mRepoSearchResultsRecycler.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RepoSearchResultsActivity.this);
+                        mRepoSearchResultsRecycler.setLayoutManager(layoutManager);
+                        mRepoSearchResultsRecycler.setHasFixedSize(true);
 
-                        ArrayAdapter adapter = new ArrayAdapter
-                                (RepoSearchResultsActivity.this,
-                                        android.R.layout.simple_list_item_1,
-                                        repoNames);
-                        mRepoListView.setAdapter(adapter);
 
                         for(Repo repo : mRepos){
                             Log.d(TAG, "______________________________________");
