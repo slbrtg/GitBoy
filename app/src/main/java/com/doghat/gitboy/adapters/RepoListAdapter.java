@@ -1,6 +1,8 @@
 package com.doghat.gitboy.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,11 +47,12 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         return mRepos.size();
     }
 
-    public class RepoViewHolder extends RecyclerView.ViewHolder{
+    public class RepoViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.repoImageView) ImageView mRepoImageView;
         @Bind(R.id.repoNameTextView) TextView mRepoNameTextView;
         @Bind(R.id.repoOwnerTextView) TextView mRepoOwnerTextView;
         @Bind(R.id.repoLanguageTextView) TextView mRepoLanguageTextView;
+        //@Bind(R.id.repoRecyclerView) RecyclerView mRepoRecyclerView;
 
         private Context mContext;
 
@@ -57,14 +60,22 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
+
         }
 
-        public void bindRepo(Repo repo){
+        public void bindRepo(final Repo repo) {
             mRepoNameTextView.setText(repo.getmName());
             mRepoLanguageTextView.setText(repo.getmLanguage());
             mRepoOwnerTextView.setText("Owner: " + repo.getmOwner());
+
+            mRepoImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(repo.getmHtmlUrl()));
+                    mContext.startActivity(webIntent);
+                }
+            });
         }
-
-
     }
 }
