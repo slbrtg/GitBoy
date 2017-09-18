@@ -42,12 +42,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mSearchRepoButton){
             String searchRepoQuery = mSearchRepoEditText.getText().toString();
-            if (searchRepoQuery == ""){
-                Toast.makeText(MainActivity.this,"Please input a search.",Toast.LENGTH_LONG);
+            if (searchRepoQuery.equals("")){
+                Toast.makeText(MainActivity.this,"Please provide a search",Toast.LENGTH_LONG).show();
+            } else {
+                Intent intent = new Intent(MainActivity.this, RepoSearchResultsActivity.class);
+                intent.putExtra("searchRepoQuery", searchRepoQuery);
+                startActivity(intent);
             }
-            Intent intent = new Intent(MainActivity.this, RepoSearchResultsActivity.class);
-            intent.putExtra("searchRepoQuery", searchRepoQuery);
-            startActivity(intent);
         } else if(v == mSignInButton){
             Intent intent = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(intent);
