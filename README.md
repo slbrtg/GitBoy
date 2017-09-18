@@ -4,8 +4,7 @@ An Android application that provides users information on github repositories in
 
 ## Getting Started
 
-Sign up for a Github client id and secret in your user settings page. In the settings also request a token.
-Clone the project.
+Have a recent version of Android Studio on your laptop and clone the project
 
 ### Prerequisites
 Android Studio and a recent JDK
