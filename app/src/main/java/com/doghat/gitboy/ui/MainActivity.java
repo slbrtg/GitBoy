@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mSearchRepoButton){
             String searchRepoQuery = mSearchRepoEditText.getText().toString();
+            if (searchRepoQuery == ""){
+                Toast.makeText(MainActivity.this,"Please input a search.",Toast.LENGTH_LONG);
+            }
             Intent intent = new Intent(MainActivity.this, RepoSearchResultsActivity.class);
             intent.putExtra("searchRepoQuery", searchRepoQuery);
             startActivity(intent);
