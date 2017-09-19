@@ -25,7 +25,7 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'GITHUB_CLIENT_ID', GithubClientId
         it.buildConfigField 'String', 'GITHUB_CLIENT_SECRET', GithubClientSecret
-        it.buildConfigField 'String', 'GITHUB_TOKEN', GitHubToken
+        it.buildConfigField 'String', 'GITHUB_TOKEN', GithubToken
     }
 }
 

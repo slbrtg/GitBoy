@@ -33,9 +33,9 @@ public class GithubService {
         urlBuilder.addQueryParameter(Constants.GITHUB_ACCESS_TOKEN_PARAMETER, Constants.GITHUB_TOKEN);
 
         String url = urlBuilder.build().toString();
+        Log.d(TAG, url);
 
         Request request = new Request.Builder()
-
                 .url(url)
                 .build();
 
