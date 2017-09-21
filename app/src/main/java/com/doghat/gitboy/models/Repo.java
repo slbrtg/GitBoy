@@ -4,16 +4,19 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Repo {
-    private String mName;
-    private String mDescription;
-    private String mHtmlUrl;
-    private Boolean mIsPrivate;
-    private String mLanguage;
-    private String mOwner;
-    private String mOwnerType;
-    private String mOwnerAvatarUrl;
-    private String mOwnerProfileHtmlUrl;
-    private String mOwnerReposHtmlUrl;
+    String mName;
+    String mDescription;
+    String mHtmlUrl;
+    Boolean mIsPrivate;
+    String mLanguage;
+    String mOwner;
+    String mOwnerType;
+    String mOwnerAvatarUrl;
+    String mOwnerProfileHtmlUrl;
+    String mOwnerReposHtmlUrl;
+
+    //Parceler Constructor
+    public Repo() {}
 
     public Repo(String name, String description, String htmlUrl, Boolean isPrivate,
                 String language, String owner, String ownerType, String ownerAvatarUrl,

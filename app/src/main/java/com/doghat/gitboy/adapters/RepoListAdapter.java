@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.doghat.gitboy.R;
 import com.doghat.gitboy.models.Repo;
+import com.doghat.gitboy.ui.RepoDetailActivity;
 
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -47,12 +49,14 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         return mRepos.size();
     }
 
-    public class RepoViewHolder extends RecyclerView.ViewHolder {
+    public class RepoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.repoImageView) ImageView mRepoImageView;
         @Bind(R.id.repoNameTextView) TextView mRepoNameTextView;
         @Bind(R.id.repoOwnerTextView) TextView mRepoOwnerTextView;
         @Bind(R.id.repoLanguageTextView) TextView mRepoLanguageTextView;
         //@Bind(R.id.repoRecyclerView) RecyclerView mRepoRecyclerView;
+
+
 
         private Context mContext;
 
@@ -61,6 +65,17 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
 
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            int itemPosition = getLayoutPosition();
+            Intent intent = new Intent(mContext, RepoDetailActivity.class);
+            intent.putExtra("position", itemPosition);
+            intent.putExtra("repos", Parcels.wrap(mRepos));
+            mContext.startActivity(intent);
         }
 
         public void bindRepo(final Repo repo) {

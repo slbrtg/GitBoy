@@ -14,7 +14,6 @@ import com.doghat.gitboy.R;
 import com.doghat.gitboy.models.Repo;
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import butterknife.Bind;
@@ -46,9 +45,15 @@ public class RepoDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_repo_detail, container, false);
+        ButterKnife.bind(this, view);
 
+        Picasso.with(view.getContext()).load(R.drawable.giticon).into(mRepoImageView);
         mRepoDetailTextView.setText(mRepo.getmDescription());
-        mRepoImageView.
+        mRepoLanguageTextView.setText(mRepo.getmLanguage());
+        mRepoNameTextView.setText(mRepo.getmName());
+        mRepoOwnerTextView.setText(mRepo.getmOwner());
+
+        return view;
     }
 
 }
