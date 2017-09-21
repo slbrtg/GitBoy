@@ -1,5 +1,8 @@
 package com.doghat.gitboy.models;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Repo {
     private String mName;
     private String mDescription;
