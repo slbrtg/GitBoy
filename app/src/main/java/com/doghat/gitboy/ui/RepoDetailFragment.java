@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.doghat.gitboy.Constants;
 import com.doghat.gitboy.R;
 import com.doghat.gitboy.models.Repo;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -67,10 +69,17 @@ public class RepoDetailFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v == mSaveRepoButton) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
             DatabaseReference repoRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_REPOS);
-            repoRef.push().setValue(mRepo);
+                    .getReference(Constants.FIREBASE_CHILD_REPOS)
+                    .child(uid);
+            DatabaseReference pushRef = repoRef.push();
+            String pushId = pushRef.getKey();
+            mRepo.setPushId(pushId);
+            pushRef.setValue(mRepo);
+
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }

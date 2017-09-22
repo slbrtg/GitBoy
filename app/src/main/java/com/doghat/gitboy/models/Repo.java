@@ -15,6 +15,7 @@ public class Repo {
     String ownerAvatarUrl;
     String ownerProfileHtmlUrl;
     String ownerReposHtmlUrl;
+    String pushId;
 
 
     public Repo() {}
@@ -72,5 +73,13 @@ public class Repo {
 
     public String getOwnerReposHtmlUrl() {
         return ownerReposHtmlUrl;
+    }
+
+    public String getPushId(String pushId) {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 }
