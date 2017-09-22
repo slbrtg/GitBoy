@@ -30,7 +30,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.doghat.gitboy.ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.RepoDetailActivity"></activity>
+        <activity android:name=".ui.RepoDetailActivity" />
+        <activity android:name=".ui.SavedRepoListActivity"></activity>
     </application>
 
 </manifest>

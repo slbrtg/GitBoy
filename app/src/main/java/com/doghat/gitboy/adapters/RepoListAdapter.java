@@ -54,7 +54,6 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         @Bind(R.id.repoNameTextView) TextView mRepoNameTextView;
         @Bind(R.id.repoOwnerTextView) TextView mRepoOwnerTextView;
         @Bind(R.id.repoLanguageTextView) TextView mRepoLanguageTextView;
-        //@Bind(R.id.repoRecyclerView) RecyclerView mRepoRecyclerView;
 
 
 
@@ -79,15 +78,15 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         }
 
         public void bindRepo(final Repo repo) {
-            mRepoNameTextView.setText(repo.getmName());
-            mRepoLanguageTextView.setText(repo.getmLanguage());
-            mRepoOwnerTextView.setText("Owner: " + repo.getmOwner());
+            mRepoNameTextView.setText(repo.getName());
+            mRepoLanguageTextView.setText(repo.getLanguage());
+            mRepoOwnerTextView.setText("Owner: " + repo.getOwner());
 
             mRepoImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(repo.getmHtmlUrl()));
+                            Uri.parse(repo.getHtmlUrl()));
                     mContext.startActivity(webIntent);
                 }
             });

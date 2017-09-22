@@ -29,6 +29,6 @@ public class RepoPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mRepos.get(position).getmName();
+        return mRepos.get(position).getName();
     }
 }

@@ -25,7 +25,7 @@
             android:id="@+id/repoNameTextView"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:text="Restaurant Name"
+            android:text="Repo Name"
             android:textColor="@color/primary"/>
 
         <TextView

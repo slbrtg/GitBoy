@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.searchRepoEditText) EditText mSearchRepoEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
     @Bind(R.id.searchRepoTextView) TextView mSearchRepoTextView;
-    @Bind(R.id.signInButton) Button mSignInButton;
+    @Bind(R.id.viewSavedRepoButton) Button mViewSavedRepoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSearchRepoTextView.setTypeface(futuraMedium);
 
         mSearchRepoButton.setOnClickListener(this);
-        mSignInButton.setOnClickListener(this);
+        mViewSavedRepoButton.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -83,8 +83,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("searchRepoQuery", searchRepoQuery);
                 startActivity(intent);
             }
-        } else if(v == mSignInButton){
-            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+        }
+        if (v == mViewSavedRepoButton) {
+            Intent intent = new Intent(MainActivity.this, SavedRepoListActivity.class);
             startActivity(intent);
         }
     }

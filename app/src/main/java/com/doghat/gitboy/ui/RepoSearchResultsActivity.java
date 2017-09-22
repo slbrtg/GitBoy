@@ -73,16 +73,16 @@ public class RepoSearchResultsActivity extends AppCompatActivity {
 
                         for(Repo repo : mRepos){
                             Log.d(TAG, "______________________________________");
-                            Log.d(TAG, "Name: " + repo.getmName());
-                            Log.d(TAG, "Description: " + repo.getmDescription());
-                            Log.d(TAG, "HtmlUrl: " + repo.getmHtmlUrl());
-                            Log.d(TAG, "IsPrivate: " + repo.getmIsPrivate());
-                            Log.d(TAG, "Language: " + repo.getmLanguage());
-                            Log.d(TAG, "Owner: " + repo.getmOwner());
-                            Log.d(TAG, "OwnerType: " + repo.getmOwnerType());
-                            Log.d(TAG, "OwnerAvatarUrl: " + repo.getmOwnerAvatarUrl());
-                            Log.d(TAG, "OwnerHtmlUrl: " + repo.getmOwnerProfileHtmlUrl());
-                            Log.d(TAG,"OwnerReposHtmlUrl: " + repo.getmOwnerReposHtmlUrl());
+                            Log.d(TAG, "Name: " + repo.getName());
+                            Log.d(TAG, "Description: " + repo.getDescription());
+                            Log.d(TAG, "HtmlUrl: " + repo.getHtmlUrl());
+                            Log.d(TAG, "IsPrivate: " + repo.getIsPrivate());
+                            Log.d(TAG, "Language: " + repo.getLanguage());
+                            Log.d(TAG, "Owner: " + repo.getOwner());
+                            Log.d(TAG, "OwnerType: " + repo.getOwnerType());
+                            Log.d(TAG, "OwnerAvatarUrl: " + repo.getOwnerAvatarUrl());
+                            Log.d(TAG, "OwnerHtmlUrl: " + repo.getOwnerProfileHtmlUrl());
+                            Log.d(TAG,"OwnerReposHtmlUrl: " + repo.getOwnerReposHtmlUrl());
                         }
                     }
                 });

@@ -69,7 +69,7 @@ public class GithubService {
                             language,owner,ownerType,
                             ownerAvatarUrl,ownerHtmlUrl);
                     repos.add(repo);
-                    Log.d(TAG,repo.getmName());
+                    Log.d(TAG,repo.getName());
                 }
             }
         } catch (JSONException e) {
