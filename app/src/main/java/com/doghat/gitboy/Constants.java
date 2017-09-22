@@ -9,6 +9,8 @@ public class Constants {
     public static final String GITHUB_REPO_SEARCH_PATH = "search/repositories";
     public static final String GITHUB_REPO_SEARCH_QUERY_PARAMETER = "q";
     public static final String GITHUB_ACCESS_TOKEN_PARAMETER = "access_token";
+    public static final String FIREBASE_CHILD_SEARCHED_REPO = "searchedRepo";
+    public static final String FIREBASE_CHILD_REPOS = "repos";
 
 
 }

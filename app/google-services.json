@@ -1,0 +1,56 @@
+
+{
+  "project_info": {
+    "project_number": "819916679077",
+    "firebase_url": "https://git-boy.firebaseio.com",
+    "project_id": "git-boy",
+    "storage_bucket": "git-boy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819916679077:android:0391ab81877646cc",
+        "android_client_info": {
+          "package_name": "com.doghat.gitboy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819916679077-8hvp2dmiffiiljig1mhi6se3s67odgjc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.doghat.gitboy",
+            "certificate_hash": "13b906dfbe887c9104a7d87d9ab4d4d976829d94"
+          }
+        },
+        {
+          "client_id": "819916679077-0qdgd3fqs39f217vvkmsr5ljcf5c14st.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV2ypaAL15RVsmhED0r7w-PEcfmNgPYfY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819916679077-0qdgd3fqs39f217vvkmsr5ljcf5c14st.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

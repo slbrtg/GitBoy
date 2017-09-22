@@ -48,10 +48,10 @@ public class RepoDetailFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         Picasso.with(view.getContext()).load(R.drawable.giticon).into(mRepoImageView);
-        mRepoDetailTextView.setText(mRepo.getmDescription());
-        mRepoLanguageTextView.setText(mRepo.getmLanguage());
-        mRepoNameTextView.setText(mRepo.getmName());
-        mRepoOwnerTextView.setText(mRepo.getmOwner());
+        mRepoDetailTextView.setText(mRepo.getDescription());
+        mRepoLanguageTextView.setText(mRepo.getLanguage());
+        mRepoNameTextView.setText(mRepo.getName());
+        mRepoOwnerTextView.setText(mRepo.getOwner());
 
         return view;
     }

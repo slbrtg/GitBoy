@@ -1,3 +1,4 @@
+
 package com.doghat.gitboy.ui;
 
 import android.content.Intent;
@@ -13,10 +14,21 @@ import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import com.doghat.gitboy.Constants;
 import com.doghat.gitboy.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private DatabaseReference mSearchedRepoReference;
+    private ValueEventListener mSearchedRepoReferenceListener;
+
     @Bind(R.id.searchRepoButton) Button mSearchRepoButton;
     @Bind(R.id.searchRepoEditText) EditText mSearchRepoEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
@@ -25,6 +37,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mSearchedRepoReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_SEARCHED_REPO);
+        mSearchedRepoReferenceListener = mSearchedRepoReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot repoSnapshot : dataSnapshot.getChildren()) {
+                    String repo = repoSnapshot.getValue().toString();
+                    Log.d("Repos updated", "Repo: " + repo);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -45,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (searchRepoQuery.equals("")){
                 Toast.makeText(MainActivity.this,"Please provide a search",Toast.LENGTH_LONG).show();
             } else {
+                saveRepoToFirebase(searchRepoQuery);
                 Intent intent = new Intent(MainActivity.this, RepoSearchResultsActivity.class);
                 intent.putExtra("searchRepoQuery", searchRepoQuery);
                 startActivity(intent);
@@ -53,6 +87,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSearchedRepoReference.removeEventListener(mSearchedRepoReferenceListener);
+    }
+
+    public void saveRepoToFirebase(String searchRepoQuery) {
+        mSearchedRepoReference.setValue(searchRepoQuery);
     }
 }
 

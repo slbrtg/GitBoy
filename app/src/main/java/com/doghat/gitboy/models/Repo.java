@@ -4,72 +4,73 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Repo {
-    String mName;
-    String mDescription;
-    String mHtmlUrl;
-    Boolean mIsPrivate;
-    String mLanguage;
-    String mOwner;
-    String mOwnerType;
-    String mOwnerAvatarUrl;
-    String mOwnerProfileHtmlUrl;
-    String mOwnerReposHtmlUrl;
 
-    //Parceler Constructor
+    String name;
+    String description;
+    String htmlUrl;
+    Boolean isPrivate;
+    String language;
+    String owner;
+    String ownerType;
+    String ownerAvatarUrl;
+    String ownerProfileHtmlUrl;
+    String ownerReposHtmlUrl;
+
+
     public Repo() {}
 
     public Repo(String name, String description, String htmlUrl, Boolean isPrivate,
                 String language, String owner, String ownerType, String ownerAvatarUrl,
                 String ownerProfileHtmlUrl) {
-        this.mName = name;
-        this.mDescription = description;
-        this.mHtmlUrl = htmlUrl;
-        this.mIsPrivate = isPrivate;
-        this.mLanguage = language;
-        this.mOwner = owner;
-        this.mOwnerType = ownerType;
-        this.mOwnerAvatarUrl = ownerAvatarUrl;
-        this.mOwnerProfileHtmlUrl = ownerProfileHtmlUrl;
-        this.mOwnerReposHtmlUrl = ownerProfileHtmlUrl + "/repos";
+        this.name = name;
+        this.description = description;
+        this.htmlUrl = htmlUrl;
+        this.isPrivate = isPrivate;
+        this.language = language;
+        this.owner = owner;
+        this.ownerType = ownerType;
+        this.ownerAvatarUrl = ownerAvatarUrl;
+        this.ownerProfileHtmlUrl = ownerProfileHtmlUrl;
+        this.ownerReposHtmlUrl = ownerProfileHtmlUrl + "/repos";
     }
 
-    public String getmName() {
-        return mName;
+    public String getName() {
+        return name;
     }
 
-    public String getmDescription() {
-        return mDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public String getmHtmlUrl() {
-        return mHtmlUrl;
+    public String getHtmlUrl() {
+        return htmlUrl;
     }
 
-    public Boolean getmIsPrivate() {
-        return mIsPrivate;
+    public Boolean getIsPrivate() {
+        return isPrivate;
     }
 
-    public String getmLanguage() {
-        return mLanguage;
+    public String getLanguage() {
+        return language;
     }
 
-    public String getmOwner() {
-        return mOwner;
+    public String getOwner() {
+        return owner;
     }
 
-    public String getmOwnerType() {
-        return mOwnerType;
+    public String getOwnerType() {
+        return ownerType;
     }
 
-    public String getmOwnerAvatarUrl() {
-        return mOwnerAvatarUrl;
+    public String getOwnerAvatarUrl() {
+        return ownerAvatarUrl;
     }
 
-    public String getmOwnerProfileHtmlUrl() {
-        return mOwnerProfileHtmlUrl;
+    public String getOwnerProfileHtmlUrl() {
+        return ownerProfileHtmlUrl;
     }
 
-    public String getmOwnerReposHtmlUrl() {
-        return mOwnerReposHtmlUrl;
+    public String getOwnerReposHtmlUrl() {
+        return ownerReposHtmlUrl;
     }
 }
