@@ -11,6 +11,7 @@ public class Constants {
     public static final String GITHUB_ACCESS_TOKEN_PARAMETER = "access_token";
     public static final String FIREBASE_CHILD_SEARCHED_REPO = "searchedRepo";
     public static final String FIREBASE_CHILD_REPOS = "repos";
+    public static final String PREFERENCES_REPO_KEY = "repo";
 
 
 }

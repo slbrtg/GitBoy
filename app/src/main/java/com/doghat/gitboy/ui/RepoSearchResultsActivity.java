@@ -1,6 +1,8 @@
 package com.doghat.gitboy.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.doghat.gitboy.Constants;
 import com.doghat.gitboy.R;
 import com.doghat.gitboy.adapters.RepoListAdapter;
 import com.doghat.gitboy.models.Repo;
@@ -29,6 +32,7 @@ import okhttp3.Response;
 public class RepoSearchResultsActivity extends AppCompatActivity {
     public static final String TAG = RepoSearchResultsActivity.class.getSimpleName();
 
+
     @Bind(R.id.repoSearchResultsRecycler) RecyclerView mRepoSearchResultsRecycler;
     private RepoListAdapter mAdapter;
 
@@ -39,6 +43,7 @@ public class RepoSearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repo_search_results);
         ButterKnife.bind(this);
+
 
         Intent intent = getIntent();
         String searchRepoQuery = intent.getStringExtra("searchRepoQuery");
