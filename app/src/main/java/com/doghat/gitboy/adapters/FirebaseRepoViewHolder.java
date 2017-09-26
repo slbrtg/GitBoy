@@ -61,7 +61,7 @@ public class FirebaseRepoViewHolder extends RecyclerView.ViewHolder implements V
                 int itemPosition = getLayoutPosition();
 
                 Intent intent = new Intent(mContext, RepoDetailActivity.class);
-                intent.putExtra("position", itemPosition + "");
+                intent.putExtra("position", itemPosition);
                 intent.putExtra("repos", Parcels.wrap(repos));
 
                 mContext.startActivity(intent);

@@ -49,11 +49,13 @@ public class SavedRepoListActivity extends AppCompatActivity {
         mFirebaseAdapter = new FirebaseRecyclerAdapter<Repo, FirebaseRepoViewHolder>
                 (Repo.class, R.layout.repo_list_item, FirebaseRepoViewHolder.class,
                         mRepoReference) {
+
             @Override
             protected void populateViewHolder(FirebaseRepoViewHolder viewHolder, Repo model, int position) {
                 viewHolder.bindRepo(model);
             }
         };
+
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseAdapter);

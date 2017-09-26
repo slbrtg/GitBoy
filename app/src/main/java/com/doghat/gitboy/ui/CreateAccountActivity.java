@@ -27,10 +27,6 @@ import butterknife.ButterKnife;
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = CreateAccountActivity.class.getSimpleName();
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private ProgressDialog mAuthProgressDialog;
-
     @Bind(R.id.createUserButton) Button mCreateUserButton;
     @Bind(R.id.nameEditText) EditText mNameEditText;
     @Bind(R.id.emailEditText) EditText mEmailEditText;
@@ -38,28 +34,39 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
     @Bind(R.id.loginTextView) TextView mLoginTextView;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private ProgressDialog mAuthProgressDialog;
     private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
         ButterKnife.bind(this);
 
-        createAuthStateListener();
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        createAuthStateListener();
         createAuthProgressDialog();
 
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
     }
 
-    private void createAuthProgressDialog() {
-        mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Authenticating");
-        mAuthProgressDialog.setCancelable(false);
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     @Override
@@ -91,18 +98,36 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
         mAuthProgressDialog.show();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        mAuthProgressDialog.dismiss();
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                mAuthProgressDialog.dismiss();
+
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "Authentication successful");
+                    createFirebaseUserProfile(task.getResult().getUser());
+                } else {
+                    Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        });
+    }
+
+    private void createFirebaseUserProfile(final FirebaseUser user) {
+        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
+                .setDisplayName(mName)
+                .build();
+        user.updateProfile(addProfileName)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "Authentication successful");
-                            createFirebaseUserProfile(task.getResult().getUser());
-                        } else {
-                            Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, user.getDisplayName());
                         }
                     }
                 });
@@ -113,25 +138,21 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
-                Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+                if (user != null) {
+                    Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
             }
         };
-
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mAuth.removeAuthStateListener(mAuthListener);
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
     }
 
     private boolean isValidEmail(String email) {
@@ -163,19 +184,4 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         return true;
     }
 
-    private void createFirebaseUserProfile(final FirebaseUser user) {
-        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
-                .setDisplayName(mName)
-                .build();
-
-        user.updateProfile(addProfileName)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, user.getDisplayName());
-                        }
-                    }
-                });
-    }
 }
