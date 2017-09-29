@@ -2,8 +2,12 @@ package com.doghat.gitboy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import com.doghat.gitboy.R;
 import com.doghat.gitboy.models.Repo;
 import com.doghat.gitboy.ui.RepoDetailActivity;
+import com.doghat.gitboy.ui.RepoDetailFragment;
 
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
@@ -58,6 +63,7 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
 
 
         private Context mContext;
+        private int mOrientation;
 
         public RepoViewHolder(View itemView){
             super(itemView);
@@ -65,16 +71,32 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
             mContext = itemView.getContext();
 
             itemView.setOnClickListener(this);
+            mOrientation = itemView.getResources().getConfiguration().orientation;
 
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(0);
+            }
+
+        }
+
+        private void createDetailFragment(int position) {
+            RepoDetailFragment detailFragment = RepoDetailFragment.newInstance(mRepos, position);
+            FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.repoDetailContainer, detailFragment);
+            ft.commit();
         }
 
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            Intent intent = new Intent(mContext, RepoDetailActivity.class);
-            intent.putExtra("position", itemPosition);
-            intent.putExtra("repos", Parcels.wrap(mRepos));
-            mContext.startActivity(intent);
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+                createDetailFragment(itemPosition);
+            } else {
+                Intent intent = new Intent(mContext, RepoDetailActivity.class);
+                intent.putExtra("position", itemPosition);
+                intent.putExtra("repos", Parcels.wrap(mRepos));
+                mContext.startActivity(intent);
+            }
         }
 
         public void bindRepo(final Repo repo) {

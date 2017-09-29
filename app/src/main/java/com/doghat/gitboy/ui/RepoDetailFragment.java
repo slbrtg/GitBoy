@@ -3,6 +3,7 @@ package com.doghat.gitboy.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -35,11 +38,14 @@ public class RepoDetailFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.saveRepoButton) Button mSaveRepoButton;
 
     private Repo mRepo;
+    private ArrayList<Repo> mRepos = new ArrayList<>();
+    private int mPosition;
 
-    public static RepoDetailFragment newInstance(Repo repo) {
+    public static RepoDetailFragment newInstance(ArrayList<Repo> repos, int position) {
         RepoDetailFragment repoDetailFragment = new RepoDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable("repo", Parcels.wrap(repo));
+        args.putParcelable("repo", Parcels.wrap(repos));
+        args.putInt("position", position);
         repoDetailFragment.setArguments(args);
         return repoDetailFragment;
     }
@@ -47,7 +53,10 @@ public class RepoDetailFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRepo = Parcels.unwrap(getArguments().getParcelable("repo"));
+        mRepos = Parcels.unwrap(getArguments().getParcelable("repo"));
+        mPosition = getArguments().getInt("position");
+        mRepo = mRepos.get(mPosition);
+
     }
 
     @Override

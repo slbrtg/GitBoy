@@ -3,6 +3,7 @@ package com.doghat.gitboy.ui;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.doghat.gitboy.R;
 import com.doghat.gitboy.adapters.RepoPagerAdapter;
@@ -27,7 +28,8 @@ public class RepoDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mRepos = Parcels.unwrap(getIntent().getParcelableExtra("repos"));
-        int startingPosition = getIntent().getIntExtra("position", 0);
+        int startingPosition = getIntent().getIntExtra("position",0);
+
 
         adapterViewPager = new RepoPagerAdapter(getSupportFragmentManager(),mRepos);
         mViewPager.setAdapter(adapterViewPager);

@@ -19,7 +19,7 @@ public class RepoPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return RepoDetailFragment.newInstance(mRepos.get(position));
+        return RepoDetailFragment.newInstance(mRepos, position);
     }
 
     @Override
