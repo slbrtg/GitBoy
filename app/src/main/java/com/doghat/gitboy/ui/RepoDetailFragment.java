@@ -1,10 +1,18 @@
 package com.doghat.gitboy.ui;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,6 +32,8 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -37,15 +47,18 @@ public class RepoDetailFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.repoLanguageTextView) TextView mRepoLanguageTextView;
     @Bind(R.id.saveRepoButton) Button mSaveRepoButton;
 
+    private String mSource;
+    private static final int REQUEST_IMAGE_CAPTURE = 111;
     private Repo mRepo;
     private ArrayList<Repo> mRepos = new ArrayList<>();
     private int mPosition;
 
-    public static RepoDetailFragment newInstance(ArrayList<Repo> repos, int position) {
+    public static RepoDetailFragment newInstance(ArrayList<Repo> repos, int position, String source) {
         RepoDetailFragment repoDetailFragment = new RepoDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable("repo", Parcels.wrap(repos));
         args.putInt("position", position);
+        args.putString("source", source);
         repoDetailFragment.setArguments(args);
         return repoDetailFragment;
     }
@@ -53,9 +66,12 @@ public class RepoDetailFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSource = getArguments().getString("source");
         mRepos = Parcels.unwrap(getArguments().getParcelable("repo"));
         mPosition = getArguments().getInt("position");
         mRepo = mRepos.get(mPosition);
+
+        setHasOptionsMenu(true);
 
     }
 
@@ -73,6 +89,63 @@ public class RepoDetailFragment extends Fragment implements View.OnClickListener
         mSaveRepoButton.setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if(mSource.equals("saved")){
+            inflater.inflate(R.menu.menu_photo, menu);
+        } else {
+            inflater.inflate(R.menu.menu_main, menu);
+        }
+    }
+
+    public void onLaunchCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            //mImageLabel.setImageBitmap(imageBitmap);
+            encodeBitmapAndSaveToFirebase(imageBitmap);
+        }
+    }
+
+    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference(Constants.FIREBASE_CHILD_REPOS)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(mRepo.getPushId())
+                .child("imageUrl");
+        ref.setValue(imageEncoded);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_photo:
+                onLaunchCamera();
+                default:
+                    break;
+        }
+        return false;
     }
 
     @Override

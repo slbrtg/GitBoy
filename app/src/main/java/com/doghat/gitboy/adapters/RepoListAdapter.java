@@ -31,10 +31,12 @@ import butterknife.ButterKnife;
 public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>{
     private ArrayList<Repo> mRepos = new ArrayList<>();
     private Context mContext;
+    //private String mSource;
 
     public RepoListAdapter(Context context, ArrayList<Repo> repos){
         mContext = context;
         mRepos = repos;
+        //mSource = source;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         }
 
         private void createDetailFragment(int position) {
-            RepoDetailFragment detailFragment = RepoDetailFragment.newInstance(mRepos, position);
+            RepoDetailFragment detailFragment = RepoDetailFragment.newInstance(mRepos, position, "search");
             FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.repoDetailContainer, detailFragment);
             ft.commit();
@@ -95,6 +97,7 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
                 Intent intent = new Intent(mContext, RepoDetailActivity.class);
                 intent.putExtra("position", itemPosition);
                 intent.putExtra("repos", Parcels.wrap(mRepos));
+                intent.putExtra("source", "search");
                 mContext.startActivity(intent);
             }
         }

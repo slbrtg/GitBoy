@@ -12,14 +12,16 @@ import java.util.ArrayList;
 
 public class RepoPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Repo> mRepos;
-    public RepoPagerAdapter(FragmentManager fm, ArrayList<Repo> repos) {
+    private String mSource;
+    public RepoPagerAdapter(FragmentManager fm, ArrayList<Repo> repos, String source) {
         super(fm);
         mRepos = repos;
+        mSource = source;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return RepoDetailFragment.newInstance(mRepos, position);
+        return RepoDetailFragment.newInstance(mRepos, position, mSource);
     }
 
     @Override

@@ -15,6 +15,7 @@ public class Repo {
     String ownerAvatarUrl;
     String ownerProfileHtmlUrl;
     String ownerReposHtmlUrl;
+    String imageUrl;
     String pushId;
 
 
@@ -33,6 +34,7 @@ public class Repo {
         this.ownerAvatarUrl = ownerAvatarUrl;
         this.ownerProfileHtmlUrl = ownerProfileHtmlUrl;
         this.ownerReposHtmlUrl = ownerProfileHtmlUrl + "/repos";
+        //this.imageUrl = "nil";
     }
 
     public String getName() {
@@ -75,11 +77,13 @@ public class Repo {
         return ownerReposHtmlUrl;
     }
 
-    public String getPushId(String pushId) {
+    public String getPushId() {
         return pushId;
     }
 
     public void setPushId(String pushId) {
         this.pushId = pushId;
     }
+
+    public String getImageUrl() {return imageUrl;}
 }

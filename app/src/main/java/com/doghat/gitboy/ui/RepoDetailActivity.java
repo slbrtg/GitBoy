@@ -20,6 +20,7 @@ public class RepoDetailActivity extends AppCompatActivity {
     @Bind(R.id.viewPager) ViewPager mViewPager;
     private RepoPagerAdapter adapterViewPager;
     ArrayList<Repo> mRepos = new ArrayList<>();
+    String mSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +29,12 @@ public class RepoDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mRepos = Parcels.unwrap(getIntent().getParcelableExtra("repos"));
+        mSource = getIntent().getStringExtra("source");
         int startingPosition = getIntent().getIntExtra("position",0);
 
 
-        adapterViewPager = new RepoPagerAdapter(getSupportFragmentManager(),mRepos);
+
+        adapterViewPager = new RepoPagerAdapter(getSupportFragmentManager(),mRepos, mSource);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
 
